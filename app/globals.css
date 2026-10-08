@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  --sidebar-bg: #1E110A;
+  --sidebar-text: #E8D5C0;
+  --sidebar-muted: #7A5C48;
+  --sidebar-active: #C87D55;
+  --page-bg: #FAF7F4;
+  --card-bg: #FFFFFF;
+  --border: #EDE2D5;
+  --accent: #C87D55;
+  --accent-dark: #8C4A28;
+  --text-primary: #2C1A0E;
+  --text-muted: #A08878;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--page-bg);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Global scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F5EEE8;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4B8A8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C87D55;
+}
+
+/* ── Custom Dark Sidebar Scrollbar ── */
+.sidebar-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #4A2E1D transparent;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb {
+  background: #4A2E1D;
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #C87D55;
+}
+
+/* Smooth transitions */
+.sidebar-link {
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
