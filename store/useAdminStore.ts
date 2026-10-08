@@ -55,6 +55,7 @@ interface AdminState {
   // Orders
   orders: Order[]
   updateOrderStatus: (orderId: string, status: OrderStatus) => void
+  cancelOrder: (orderId: string) => void
 
   // Tables
   tables: Table[]
@@ -73,24 +74,44 @@ interface AdminState {
 // --- Mock seed data ---
 const MOCK_ORDERS: Order[] = [
   {
-    id: 'YMO-1048', tableNumber: '07', items: [{ name: 'Cappuccino', quantity: 2, price: 220 }],
+    id: 'YMO-1048', tableNumber: '07', customerName: 'Ananya Sharma', items: [{ name: 'Cappuccino', quantity: 2, price: 220 }],
     total: 440, status: 'preparing', createdAt: new Date(Date.now() - 8 * 60000).toISOString(), updatedAt: new Date().toISOString(),
   },
   {
-    id: 'YMO-1047', tableNumber: '03', items: [{ name: 'Iced Latte', quantity: 1, price: 280 }, { name: 'Croissant', quantity: 1, price: 120 }],
+    id: 'YMO-1047', tableNumber: '03', customerName: 'Rohan Mehta', items: [{ name: 'Iced Latte', quantity: 1, price: 280 }, { name: 'Croissant', quantity: 1, price: 120 }],
     total: 400, status: 'confirmed', createdAt: new Date(Date.now() - 12 * 60000).toISOString(), updatedAt: new Date().toISOString(),
   },
   {
-    id: 'YMO-1046', tableNumber: '12', items: [{ name: 'Matcha Latte', quantity: 1, price: 320 }],
+    id: 'YMO-1046', tableNumber: '12', customerName: 'Priya Verma', items: [{ name: 'Matcha Latte', quantity: 1, price: 320 }],
     total: 320, status: 'on_the_way', createdAt: new Date(Date.now() - 15 * 60000).toISOString(), updatedAt: new Date().toISOString(),
   },
   {
-    id: 'YMO-1045', tableNumber: '05', items: [{ name: 'Cold Coffee', quantity: 1, price: 260 }, { name: 'Bagel', quantity: 1, price: 140 }],
+    id: 'YMO-1045', tableNumber: '05', customerName: 'Sameer Sen', items: [{ name: 'Cold Coffee', quantity: 1, price: 260 }, { name: 'Bagel', quantity: 1, price: 140 }],
     total: 400, status: 'preparing', createdAt: new Date(Date.now() - 18 * 60000).toISOString(), updatedAt: new Date().toISOString(),
   },
   {
-    id: 'YMO-1044', tableNumber: '09', items: [{ name: 'Cappuccino', quantity: 1, price: 220 }, { name: 'Croissant', quantity: 1, price: 120 }],
+    id: 'YMO-1044', tableNumber: '09', customerName: 'Vikram Rao', items: [{ name: 'Cappuccino', quantity: 1, price: 220 }, { name: 'Croissant', quantity: 1, price: 120 }],
     total: 340, status: 'confirmed', createdAt: new Date(Date.now() - 22 * 60000).toISOString(), updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'YMO-1043', tableNumber: '02', customerName: 'Kabir Patel', items: [{ name: 'Mocha', quantity: 1, price: 260 }, { name: 'Doughnut', quantity: 1, price: 120 }],
+    total: 380, status: 'served', createdAt: new Date(Date.now() - 32 * 60000).toISOString(), updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'YMO-1042', tableNumber: '07', customerName: 'Anushka Roy', items: [{ name: 'Cold Brew', quantity: 2, price: 240 }, { name: 'Cheesecake', quantity: 1, price: 160 }],
+    total: 640, status: 'completed', createdAt: new Date(Date.now() - 48 * 60000).toISOString(), updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'YMO-1041', tableNumber: '01', customerName: 'Rhea Shah', items: [{ name: 'Vanilla Latte', quantity: 1, price: 280 }, { name: 'Sandwich', quantity: 1, price: 210 }],
+    total: 490, status: 'completed', createdAt: new Date(Date.now() - 65 * 60000).toISOString(), updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'YMO-1040', tableNumber: '04', customerName: 'Aman Verma', items: [{ name: 'Americano', quantity: 1, price: 180 }],
+    total: 180, status: 'completed', createdAt: new Date(Date.now() - 90 * 60000).toISOString(), updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'YMO-1039', tableNumber: '11', customerName: 'Pooja Nair', items: [{ name: 'Caramel Latte', quantity: 1, price: 300 }, { name: 'Croissant', quantity: 1, price: 120 }],
+    total: 420, status: 'completed', createdAt: new Date(Date.now() - 120 * 60000).toISOString(), updatedAt: new Date().toISOString(),
   },
 ]
 
@@ -127,6 +148,11 @@ export const useAdminStore = create<AdminState>()((set, get) => ({
       orders: s.orders.map((o) =>
         o.id === orderId ? { ...o, status, updatedAt: new Date().toISOString() } : o
       ),
+    })),
+
+  cancelOrder: (orderId) =>
+    set((s) => ({
+      orders: s.orders.filter((o) => o.id !== orderId),
     })),
 
   tables: MOCK_TABLES,

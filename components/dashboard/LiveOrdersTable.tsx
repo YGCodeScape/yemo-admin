@@ -2,11 +2,13 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { ArrowRight, Utensils, CheckCircle2, Clock, Truck } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { ArrowRight, Utensils, CheckCircle2, Clock, Truck, ChevronRight } from 'lucide-react'
 import { useAdminStore, OrderStatus } from '@/store/useAdminStore'
 import { timeAgo } from '@/lib/utils'
 
 export default function LiveOrdersTable() {
+  const router = useRouter()
   const orders = useAdminStore((s) => s.orders)
   const updateOrderStatus = useAdminStore((s) => s.updateOrderStatus)
   const showToast = useAdminStore((s) => s.showToast)
@@ -151,9 +153,14 @@ export default function LiveOrdersTable() {
                 .join(', ')
 
               return (
-                <tr key={order.id} className="hover:bg-[#FCF9F6] transition-colors">
-                  <td className="py-3 font-mono font-bold text-[#2C1A0E]">
-                    #{order.id}
+                <tr
+                  key={order.id}
+                  onClick={() => router.push(`/orders?highlight=${order.id}`)}
+                  className="hover:bg-[#FAF5EE] transition-all cursor-pointer group"
+                >
+                  <td className="py-3 font-mono font-bold text-[#2C1A0E] group-hover:text-[#8C4A28] flex items-center gap-1.5">
+                    <span>#{order.id}</span>
+                    <ChevronRight size={12} className="opacity-0 group-hover:opacity-100 text-[#C87D55] transition-opacity" />
                   </td>
                   <td className="py-3 font-semibold text-[#8C4A28]">
                     Table {order.tableNumber}
@@ -167,7 +174,7 @@ export default function LiveOrdersTable() {
                   <td className="py-3 text-[#A08878] text-[11px]">
                     {timeAgo(order.createdAt)}
                   </td>
-                  <td className="py-3 text-right">
+                  <td className="py-3 text-right" onClick={(e) => e.stopPropagation()}>
                     {getActionButton(order.id, order.status)}
                   </td>
                 </tr>
