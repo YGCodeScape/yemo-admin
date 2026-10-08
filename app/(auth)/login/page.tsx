@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Eye, EyeOff, Lock, User, AlertCircle, Coffee } from 'lucide-react'
 import { useAuthStore } from '@/store/useAuthStore'
@@ -42,25 +43,39 @@ export default function LoginPage() {
     <div className="h-screen flex">
       {/* ── LEFT PANEL ── */}
       <div className="hidden lg:flex lg:w-[44%] xl:w-[42%] relative flex-col bg-[#1E110A] overflow-hidden">
-        {/* Café photo */}
+        {/* Café photo background */}
         <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/assets/cafe-login-bg.jpg')" }}
+          className="absolute inset-0 bg-cover bg-center transition-all duration-700"
+          style={{ backgroundImage: "url('/assets/cafe_storefront.jpg')" }}
         />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1E110A]/60 via-[#1E110A]/30 to-[#1E110A]/90" />
+        {/* Modern gradient overlay for readability and depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1E110A]/85 via-[#1E110A]/45 to-[#1E110A]/95 backdrop-blur-[0.5px]" />
 
         {/* Content over photo */}
         <div className="relative z-10 flex flex-col h-full p-8">
-          {/* Logo */}
-          <div>
-            <h1
-              className="text-[32px] font-bold text-white tracking-tight"
-              style={{ fontFamily: '"Lily Script One", system-ui' }}
-            >
-              yemo
-            </h1>
-            <p className="text-[#C4A882] text-[13px] mt-0.5">Café Admin Panel</p>
+          {/* Logo with wordmark */}
+          <div className="flex items-center gap-3">
+            <div className="relative w-12 h-12 rounded-2xl overflow-hidden flex items-center justify-center p-1.5 flex-shrink-0">
+              <Image
+                src="/icons/yemo-logo-bg.png"
+                alt="Yemo Café Logo"
+                width={60}
+                height={60}
+                className="object-cover rounded-2xl "
+                priority
+              />
+            </div>
+            <div>
+              <h1
+                className="text-[32px] font-bold text-white tracking-tight leading-none"
+                style={{ fontFamily: '"Lily Script One", system-ui' }}
+              >
+                yemo
+              </h1>
+              <p className="text-[#C4A882] text-[11px] font-semibold tracking-wider uppercase mt-1">
+                Café Admin Panel
+              </p>
+            </div>
           </div>
 
           {/* Center tagline */}
@@ -242,19 +257,15 @@ export default function LoginPage() {
                       Staff Access
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#A08878]">
-                    Single auth panel for every member. 
-                  </p>
+                   {/* Security note */}
+                    <div className="flex items-center justify-center gap-1.5 mt-5">
+                      <Lock size={11} className="text-[#A08878]" />
+                      <p className="text-[11px] text-[#A08878]">
+                        Secured by Yemo Admin · All sessions are logged
+                      </p>
+                    </div>
                 </div>
               </form>
-            </div>
-
-            {/* Security note */}
-            <div className="flex items-center justify-center gap-1.5 mt-5">
-              <Lock size={11} className="text-[#A08878]" />
-              <p className="text-[11px] text-[#A08878]">
-                Secured by Yemo Admin · All sessions are logged
-              </p>
             </div>
 
             {/* Dev hint */}
