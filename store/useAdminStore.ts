@@ -60,6 +60,8 @@ interface AdminState {
   // Tables
   tables: Table[]
   updateTableStatus: (tableId: string, status: TableStatus) => void
+  addTable: (table: Omit<Table, 'id'>) => void
+  deleteTable: (tableId: string) => void
 
   // Activity feed
   recentActivity: ActivityItem[]
@@ -159,6 +161,16 @@ export const useAdminStore = create<AdminState>()((set, get) => ({
   updateTableStatus: (tableId, status) =>
     set((s) => ({
       tables: s.tables.map((t) => (t.id === tableId ? { ...t, status } : t)),
+    })),
+
+  addTable: (table) =>
+    set((s) => ({
+      tables: [...s.tables, { ...table, id: `t${Date.now()}` }],
+    })),
+
+  deleteTable: (tableId) =>
+    set((s) => ({
+      tables: s.tables.filter((t) => t.id !== tableId),
     })),
 
   recentActivity: MOCK_ACTIVITY,
