@@ -74,17 +74,6 @@ export default function DashboardPage() {
             Here&apos;s what&apos;s happening at your café today.
           </p>
         </div>
-
-        <div className="flex items-center gap-3">
-          {/* Café Status Live Pill */}
-          <div className="flex items-center gap-2 bg-white border border-[#EDE2D5] px-3.5 py-1.5 rounded-full text-[12px] font-semibold text-[#2C1A0E] shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Café is open</span>
-            <span className="text-[#A08878] text-[11px] font-normal">
-              9:00 AM – 11:00 PM
-            </span>
-          </div>
-        </div>
       </div>
 
       {/* ── ROW 2: 4 Business Snapshot Metric Cards ── */}

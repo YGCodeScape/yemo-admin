@@ -10,9 +10,7 @@ import Link from 'next/link'
 
 // Paths only accessible by Admin
 const ADMIN_ONLY_PATHS = [
-  '/customers',
   '/categories',
-  '/inventory/restock',
   '/analytics',
   '/settings',
 ]

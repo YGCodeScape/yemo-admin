@@ -73,13 +73,7 @@ const NAV_GROUPS: NavGroup[] = [
         href: '/menu',
         icon: UtensilsCrossed,
         allowedRoles: ['admin'],
-      },
-      {
-        title: 'Categories',
-        href: '/categories',
-        icon: Layers,
-        allowedRoles: ['admin'],
-      },
+      }
     ],
   },
   {
@@ -97,7 +91,7 @@ const NAV_GROUPS: NavGroup[] = [
         title: 'Restock History',
         href: '/inventory/restock',
         icon: History,
-        allowedRoles: ['admin'],
+        allowedRoles: ['admin', 'staff'],
       },
     ],
   },
@@ -108,7 +102,7 @@ const NAV_GROUPS: NavGroup[] = [
         title: 'Customers',
         href: '/customers',
         icon: Users,
-        allowedRoles: ['admin'], // Hidden from staff to protect customer data
+        allowedRoles: ['admin', 'staff'], // Staff has privacy-protected view
       },
       {
         title: 'Rewards',
