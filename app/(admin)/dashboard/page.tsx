@@ -1,12 +1,10 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
 import {
   IndianRupee,
   ShoppingBag,
   Activity,
   Users,
-  Calendar,
   Sparkles,
 } from 'lucide-react'
 import { useAuthStore } from '@/store/useAuthStore'
@@ -25,34 +23,23 @@ import {
   NeedsAttentionCard,
 } from '@/components/dashboard/BottomWidgets'
 
+function getGreeting(): string {
+  const hour = new Date().getHours()
+  if (hour < 12) return 'Good morning'
+  if (hour < 17) return 'Good afternoon'
+  return 'Good evening'
+}
+
 export default function DashboardPage() {
   const user = useAuthStore((s) => s.user)
   const orders = useAdminStore((s) => s.orders)
   const toastMessage = useAdminStore((s) => s.toastMessage)
 
-  const [greeting, setGreeting] = useState('Good evening')
-  const [formattedDate, setFormattedDate] = useState('')
-
-  useEffect(() => {
-    const hour = new Date().getHours()
-    if (hour < 12) setGreeting('Good morning')
-    else if (hour < 17) setGreeting('Good afternoon')
-    else setGreeting('Good evening')
-
-    setFormattedDate(
-      new Date().toLocaleDateString('en-IN', {
-        weekday: 'short',
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-      })
-    )
-  }, [])
-
+  const greeting = getGreeting()
   const activeOrdersCount = orders.filter((o) => o.status !== 'completed').length
 
   return (
-    <div className="p-2 lg:p-8 space-y-6 max-w-[1600px] mx-auto pb-16">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-[1600px] mx-auto pb-16">
       {/* ── Toast Notification Banner ── */}
       {toastMessage && (
         <div className="fixed top-20 right-8 z-50 bg-[#2C1A0E] text-white px-4 py-2.5 rounded-2xl shadow-xl border border-[#4A2E1D] text-[13px] font-medium flex items-center gap-2 animate-bounce">
@@ -61,19 +48,18 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* ── ROW 1: Page Header with Greetings & Live Status ── */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h1
-            className="text-[26px] sm:text-[30px] font-bold text-[#2C1A0E] tracking-tight leading-tight"
-            style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
-          >
-            {greeting}, {user?.name?.split(' ')[0] || 'staff'}
-          </h1>
-          <p className="text-[13px] text-[#A08878] mt-1 font-medium">
-            Here&apos;s what&apos;s happening at your café today.
-          </p>
-        </div>
+      {/* ── ROW 1: Page Header with Greetings ── */}
+      <div>
+        <h1
+          suppressHydrationWarning
+          className="text-[26px] sm:text-[30px] font-bold text-[#2C1A0E] tracking-tight leading-tight"
+          style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+        >
+          {greeting}, {user?.name?.split(' ')[0] || 'staff'}
+        </h1>
+        <p className="text-[13px] text-[#A08878] mt-1 font-medium">
+          Here&apos;s what&apos;s happening at your café today.
+        </p>
       </div>
 
       {/* ── ROW 2: 4 Business Snapshot Metric Cards ── */}

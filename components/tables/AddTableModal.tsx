@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Plus, Users, Grid2X2 } from 'lucide-react'
+import { X, Plus, Grid2X2 } from 'lucide-react'
 import { TableStatus, useAdminStore } from '@/store/useAdminStore'
 
 interface AddTableModalProps {

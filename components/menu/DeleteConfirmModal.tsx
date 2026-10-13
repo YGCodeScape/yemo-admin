@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { AlertTriangle, Trash2, X } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import { MenuItem } from '@/store/useAdminStore'
 
 interface DeleteConfirmModalProps {
@@ -36,7 +36,7 @@ export default function DeleteConfirmModal({
             </h3>
             <p className="text-[13px] text-[#8C705B] leading-relaxed">
               Are you sure you want to remove{' '}
-              <span className="font-bold text-[#2C1A0E]">"{item.name}"</span> (₹{item.price}) from the café menu? This item will no longer appear on customer QR menus.
+              <span className="font-bold text-[#2C1A0E]">&ldquo;{item.name}&rdquo;</span> (₹{item.price}) from the café menu? This item will no longer appear on customer QR menus.
             </p>
           </div>
         </div>

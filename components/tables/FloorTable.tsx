@@ -8,7 +8,6 @@ interface FloorTableProps {
   number: string
   seats: number
   status: TableStatus
-  orderId?: string
   isSelected?: boolean
   onSelect?: () => void
   onOpenQr?: () => void
@@ -18,7 +17,6 @@ export default function FloorTable({
   number,
   seats,
   status,
-  orderId,
   isSelected,
   onSelect,
   onOpenQr,

@@ -2,15 +2,12 @@
 
 import React, { useState } from 'react'
 import {
-  Sparkles,
   Star,
   Compass,
   Puzzle,
   TrendingDown,
-  TrendingUp,
   Percent,
-  ChevronRight,
-  Info,
+  LucideIcon,
 } from 'lucide-react'
 import { TimeRange } from './AnalyticsHeader'
 
@@ -26,7 +23,16 @@ interface MenuItemPerformance {
   actionTip: string
 }
 
-const MATRIX_ITEMS: Record<MatrixCategory, { title: string; subtitle: string; icon: any; color: string; items: MenuItemPerformance[] }> = {
+const MATRIX_ITEMS: Record<
+  MatrixCategory,
+  {
+    title: string
+    subtitle: string
+    icon: LucideIcon
+    color: string
+    items: MenuItemPerformance[]
+  }
+> = {
   stars: {
     title: 'Stars (High Profit, High Volume)',
     subtitle: 'Core café revenue drivers. Maintain consistency and protect taste recipes.',
@@ -162,7 +168,7 @@ export default function MenuEngineeringMatrix({ timeRange }: { timeRange: TimeRa
             </span>
           </div>
           <p className="text-[12px] text-[#8C705B] mt-0.5">
-            Optimize café margin by analyzing item popularity vs gross profit contribution.
+            Optimize café margin for {timeRange === 'today' ? 'today' : `the last ${timeRange}`} by analyzing item popularity vs gross profit contribution.
           </p>
         </div>
 

@@ -1,16 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import {
-  Calendar,
-  Plus,
-  QrCode,
-  Download,
-  Users,
-  Grid2X2,
-  Sparkles,
-} from 'lucide-react'
-import { useAdminStore, Table, TableStatus } from '@/store/useAdminStore'
+import { Plus, QrCode, Download, Grid2X2 } from 'lucide-react'
+import { useAdminStore, Table } from '@/store/useAdminStore'
 import { useAuthStore } from '@/store/useAuthStore'
 import FloorPlan from '@/components/tables/FloorPlan'
 import TableDetailPanel from '@/components/tables/TableDetailPanel'
@@ -45,14 +37,13 @@ export default function TablesPage() {
   const availableCount = tables.filter((t) => t.status === 'available').length
   const occupiedCount = tables.filter((t) => t.status === 'occupied').length
   const orderingCount = tables.filter((t) => t.status === 'ordering').length
-  const cleaningCount = tables.filter((t) => t.status === 'cleaning').length
 
   const occupiedPercent = Math.round((occupiedCount / (tables.length || 1)) * 100)
   const orderingPercent = Math.round((orderingCount / (tables.length || 1)) * 100)
   const availablePercent = Math.round((availableCount / (tables.length || 1)) * 100)
 
   return (
-    <div className="p-6 lg:p-8 space-y-6 max-w-[1700px] mx-auto pb-24">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-[1700px] mx-auto pb-24">
       {/* ── Top Header ── */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
@@ -193,10 +184,9 @@ export default function TablesPage() {
           <div className="lg:col-span-8">
             <FloorPlan
               tables={tables}
-              orders={orders}
               selectedTableId={activeSelectedTable.id}
-              onSelectTable={(tbl) => setSelectedTable(tbl)}
-              onOpenQr={(tbl) => setSelectedQrTable(tbl)}
+              onSelectTable={setSelectedTable}
+              onOpenQr={setSelectedQrTable}
             />
           </div>
 
@@ -205,7 +195,7 @@ export default function TablesPage() {
             <TableDetailPanel
               table={activeSelectedTable}
               activeOrder={activeOrder}
-              onOpenQr={(tbl) => setSelectedQrTable(tbl)}
+              onOpenQr={setSelectedQrTable}
             />
           </div>
         </div>

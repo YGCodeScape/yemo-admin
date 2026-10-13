@@ -9,13 +9,10 @@ import {
   Search,
   Plus,
   Download,
-  ShieldCheck,
   Lock,
   ChevronDown,
   ArrowUpDown,
   X,
-  UserCheck,
-  UserX,
 } from 'lucide-react'
 import { useAdminStore, Customer, MembershipTier } from '@/store/useAdminStore'
 import { useAuthStore } from '@/store/useAuthStore'
@@ -30,11 +27,7 @@ type StatusFilter = 'all' | 'active' | 'inactive'
 
 export default function CustomersPage() {
   const user = useAuthStore((s) => s.user)
-  const authRole = user?.role || 'admin'
-
-  // Interactive switcher for testing Option A (Admin full CRM vs Staff privacy view)
-  const [activeRole, setActiveRole] = useState<'admin' | 'staff'>(authRole)
-  const isAdmin = activeRole === 'admin'
+  const isAdmin = user?.role === 'admin'
 
   const {
     customers,
@@ -199,12 +192,15 @@ export default function CustomersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-stone-100/60 p-6 md:p-8 space-y-6">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto pb-20">
       {/* Top Header & Role Switcher */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl md:text-3xl font-extrabold text-[#2C1A0E] tracking-tight">
+            <h1
+              className="text-2xl md:text-3xl font-extrabold text-[#2C1A0E] tracking-tight"
+              style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+            >
               Customer CRM & Loyalty
             </h1>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-200">
@@ -216,43 +212,16 @@ export default function CustomersPage() {
           </p>
         </div>
 
-        {/* Live Role Switcher (Option A Demonstration) */}
-        <div className="flex items-center gap-3">
-          <div className="inline-flex items-center bg-white p-1 rounded-2xl border border-stone-200 shadow-2xs">
-            <button
-              onClick={() => setActiveRole('admin')}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
-                isAdmin
-                  ? 'bg-stone-900 text-white shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50'
-              }`}
-            >
-              <ShieldCheck size={14} className={isAdmin ? 'text-amber-400' : 'text-stone-400'} />
-              <span>Admin (Full CRM)</span>
-            </button>
-            <button
-              onClick={() => setActiveRole('staff')}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
-                !isAdmin
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50'
-              }`}
-            >
-              <Lock size={14} className={!isAdmin ? 'text-blue-200' : 'text-stone-400'} />
-              <span>Staff (Privacy View)</span>
-            </button>
-          </div>
-
-          {isAdmin && (
-            <button
-              onClick={handleOpenAdd}
-              className="flex items-center gap-2 px-4 py-2.5 bg-amber-700 hover:bg-amber-800 text-white font-semibold text-xs rounded-xl shadow-xs transition-colors"
-            >
-              <Plus size={16} />
-              <span>Register Diner</span>
-            </button>
-          )}
-        </div>
+        {/* Register Diner Button (Admin Only) */}
+        {isAdmin && (
+          <button
+            onClick={handleOpenAdd}
+            className="flex items-center gap-2 px-4 py-2.5 bg-amber-700 hover:bg-amber-800 text-white font-semibold text-xs rounded-xl shadow-xs transition-colors"
+          >
+            <Plus size={16} />
+            <span>Register Diner</span>
+          </button>
+        )}
       </div>
 
       {/* Staff Privacy Notice Alert */}

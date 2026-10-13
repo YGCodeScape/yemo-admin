@@ -6,12 +6,9 @@ import {
   Clock,
   Sparkles,
   Flame,
-  Check,
-  X,
   Edit3,
   Trash2,
   Eye,
-  MoreVertical,
 } from 'lucide-react'
 import { MenuItem } from '@/store/useAdminStore'
 

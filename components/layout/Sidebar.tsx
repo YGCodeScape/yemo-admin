@@ -230,7 +230,7 @@ export default function Sidebar() {
                 <span className="text-[10px] text-[#A08878] font-mono">
                   {user?.staffId || 'ADM-001'}
                 </span>
-                <span className="text-[9px] px-1.5 py-0.2 rounded-full font-bold bg-[#C87D55]/20 text-[#E8A57F] uppercase tracking-wide flex items-center gap-0.5">
+                <span className="text-[9px] px-1.5 py-0.5 rounded-full font-bold bg-[#C87D55]/20 text-[#E8A57F] uppercase tracking-wide flex items-center gap-0.5">
                   {userRole === 'admin' ? (
                     <>
                       <Shield size={9} />

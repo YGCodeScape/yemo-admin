@@ -9,8 +9,6 @@ import {
   Smartphone,
   Banknote,
   Zap,
-  Clock,
-  ArrowRight,
 } from 'lucide-react'
 import { TimeRange } from './AnalyticsHeader'
 
@@ -88,7 +86,7 @@ export default function SalesBreakdownSection({ timeRange }: { timeRange: TimeRa
               Order Channels & Dining Flow
             </h3>
             <p className="text-[12px] text-[#8C705B] mt-0.5">
-              Revenue distribution by order origin and table service type.
+              Revenue distribution by order origin and service type for {timeRange === 'today' ? 'today' : `the last ${timeRange}`}.
             </p>
           </div>
           <span className="text-[11px] font-bold text-[#8C4A28] px-2.5 py-1 bg-[#FAF5EE] rounded-xl border border-[#EDE2D5]">

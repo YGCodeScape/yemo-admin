@@ -5,16 +5,12 @@ import {
   X,
   MapPin,
   Truck,
-  Calendar,
   AlertTriangle,
   CheckCircle2,
   XCircle,
   Sliders,
   Edit3,
   Trash2,
-  Boxes,
-  DollarSign,
-  TrendingDown,
 } from 'lucide-react'
 import { InventoryItem } from '@/store/useAdminStore'
 

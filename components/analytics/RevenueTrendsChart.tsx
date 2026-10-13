@@ -11,7 +11,7 @@ import {
   CartesianGrid,
   ReferenceLine,
 } from 'recharts'
-import { TrendingUp, IndianRupee, ShoppingBag, Percent, Sparkles } from 'lucide-react'
+import { IndianRupee, ShoppingBag, Percent, Sparkles } from 'lucide-react'
 import { TimeRange } from './AnalyticsHeader'
 
 type ChartMetric = 'revenue' | 'orders' | 'profit'

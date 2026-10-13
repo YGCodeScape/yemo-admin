@@ -4,11 +4,8 @@ import React from 'react'
 import {
   X,
   FileText,
-  Building,
-  Calendar,
   CheckCircle2,
   Clock,
-  Truck,
   PackageCheck,
   Printer,
   ShieldCheck,

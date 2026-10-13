@@ -4,7 +4,6 @@ import React from 'react'
 import {
   AlertTriangle,
   CheckCircle2,
-  XCircle,
   Edit3,
   Trash2,
   Sliders,
@@ -52,6 +51,8 @@ export default function InventoryTableRow({
         return { label: 'Fresh Produce', icon: Apple, color: 'text-emerald-800 bg-emerald-50 border-emerald-200' }
       case 'packaging':
         return { label: 'Packaging', icon: Package, color: 'text-orange-800 bg-orange-50 border-orange-200' }
+      default:
+        return { label: 'General', icon: Package, color: 'text-stone-800 bg-stone-100 border-stone-200' }
     }
   }
 
@@ -73,6 +74,7 @@ export default function InventoryTableRow({
           </span>
         )
       case 'ok':
+      default:
         return (
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
             <CheckCircle2 size={12} className="text-emerald-600" />

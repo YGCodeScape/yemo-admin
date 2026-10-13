@@ -3,17 +3,9 @@
 import React, { useState } from 'react'
 import {
   Users,
-  ShieldCheck,
   UserPlus,
-  KeyRound,
-  CheckCircle2,
-  XCircle,
   Clock,
-  Phone,
-  Mail,
-  MoreVertical,
   X,
-  Lock,
 } from 'lucide-react'
 import { useAdminStore } from '@/store/useAdminStore'
 
@@ -104,7 +96,6 @@ export default function StaffManagementSettings() {
   const [newRole, setNewRole] = useState<'admin' | 'staff'>('staff')
   const [newShift, setNewShift] = useState<'Morning' | 'Evening' | 'Full Day'>('Morning')
   const [newPhone, setNewPhone] = useState('+91 ')
-  const [newEmail, setNewEmail] = useState('')
   const [newPin, setNewPin] = useState('1234')
 
   const toggleStatus = (id: string) => {
@@ -124,15 +115,16 @@ export default function StaffManagementSettings() {
     e.preventDefault()
     if (!newName.trim()) return
 
+    const cleanName = newName.trim()
     const newMember: StaffMember = {
       id: `s-${Date.now()}`,
-      name: newName.trim(),
+      name: cleanName,
       staffId: `YMO-STF-0${staffList.length + 1}`,
       role: newRole,
       designation: newDesignation.trim(),
       shift: newShift,
       phone: newPhone.trim(),
-      email: newEmail.trim() || `${newName.toLowerCase().replace(/\s+/g, '.')}@yemocafe.in`,
+      email: `${cleanName.toLowerCase().replace(/\s+/g, '.')}@yemocafe.in`,
       posPin: newPin || '1234',
       status: 'active',
     }
@@ -214,7 +206,7 @@ export default function StaffManagementSettings() {
                     <td className="py-3 px-2">
                       <div className="font-semibold text-[#2C1A0E]">{member.designation}</div>
                       <span
-                        className={`inline-block px-1.5 py-0.2 rounded text-[10px] font-bold uppercase mt-0.5 ${
+                        className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-bold uppercase mt-0.5 ${
                           member.role === 'admin'
                             ? 'bg-amber-100 text-amber-900 border border-amber-300'
                             : 'bg-stone-100 text-stone-700 border border-stone-200'
@@ -335,7 +327,7 @@ export default function StaffManagementSettings() {
                   <label className="block font-bold text-[#2C1A0E] mb-1">Shift</label>
                   <select
                     value={newShift}
-                    onChange={(e) => setNewShift(e.target.value as any)}
+                    onChange={(e) => setNewShift(e.target.value as 'Morning' | 'Evening' | 'Full Day')}
                     className="w-full px-3 py-2 rounded-xl border border-[#EDE2D5] text-[13px] text-[#2C1A0E] bg-white focus:outline-hidden focus:border-[#C87D55]"
                   >
                     <option value="Morning">Morning (8 AM - 4 PM)</option>

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { X, Sliders, Plus, Minus, ArrowRight, CheckCircle2, AlertTriangle } from 'lucide-react'
 import { InventoryItem } from '@/store/useAdminStore'
 
@@ -17,17 +17,29 @@ export default function AdjustStockModal({
   onClose,
   onConfirm,
 }: AdjustStockModalProps) {
-  const [newQuantity, setNewQuantity] = useState<number>(0)
-  const [reason, setReason] = useState<string>('Routine Restock')
-
-  useEffect(() => {
-    if (item) {
-      setNewQuantity(item.currentStock)
-      setReason('Routine Restock')
-    }
-  }, [item, isOpen])
-
   if (!isOpen || !item) return null
+
+  return (
+    <AdjustStockForm
+      key={item.id}
+      item={item}
+      onClose={onClose}
+      onConfirm={onConfirm}
+    />
+  )
+}
+
+function AdjustStockForm({
+  item,
+  onClose,
+  onConfirm,
+}: {
+  item: InventoryItem
+  onClose: () => void
+  onConfirm: (id: string, newQuantity: number, reason: string) => void
+}) {
+  const [newQuantity, setNewQuantity] = useState<number>(item.currentStock)
+  const [reason, setReason] = useState<string>('Routine Restock')
 
   const handleQuickAdd = (delta: number) => {
     setNewQuantity((prev) => Math.max(0, parseFloat((prev + delta).toFixed(2))))

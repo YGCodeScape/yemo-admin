@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { X, Coins, Plus, Minus, ArrowRight, Sparkles } from 'lucide-react'
+import { X, Coins, Plus, Minus, ArrowRight } from 'lucide-react'
 import { Customer } from '@/store/useAdminStore'
 
 interface AdjustBeansModalProps {

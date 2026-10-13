@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useSyncExternalStore } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useAuthStore } from '@/store/useAuthStore'
 import Sidebar from '@/components/layout/Sidebar'
@@ -10,10 +10,15 @@ import Link from 'next/link'
 
 // Paths only accessible by Admin
 const ADMIN_ONLY_PATHS = [
+  '/menu',
+  '/inventory/stock',
   '/categories',
+  '/rewards',
   '/analytics',
   '/settings',
 ]
+
+const emptySubscribe = () => () => {}
 
 export default function AdminLayout({
   children,
@@ -24,30 +29,13 @@ export default function AdminLayout({
   const pathname = usePathname()
   const user = useAuthStore((s) => s.user)
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false)
 
   useEffect(() => {
     if (mounted && !isAuthenticated) {
       router.push('/login')
     }
   }, [mounted, isAuthenticated, router])
-
-  if (!mounted) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-[#FAF7F4]">
-        <div className="w-8 h-8 border-3 border-[#C87D55]/30 border-t-[#C87D55] rounded-full animate-spin" />
-      </div>
-    )
-  }
-
-  // Prevent flicker before redirect
-  if (!isAuthenticated) {
-    return null
-  }
 
   // Role Access Check for Staff
   const isRestrictedForStaff =
@@ -65,9 +53,15 @@ export default function AdminLayout({
         <TopBar />
 
         {/* Scrollable Page Body */}
-        <main className="flex-1 overflow-y-auto">
-          {isRestrictedForStaff ? (
-            <div className="h-full flex items-center justify-center p-8">
+        <main className="flex-1 overflow-y-auto relative">
+          {(!mounted || !isAuthenticated) && (
+            <div className="absolute inset-0 z-50 flex items-center justify-center bg-[#FAF7F4]">
+              <div className="w-8 h-8 border-3 border-[#C87D55]/30 border-t-[#C87D55] rounded-full animate-spin" />
+            </div>
+          )}
+
+          {isRestrictedForStaff && (
+            <div className="absolute inset-0 z-40 bg-[#FAF7F4] flex items-center justify-center p-8">
               <div className="max-w-md w-full bg-white border border-[#EDE2D5] rounded-3xl p-8 text-center shadow-sm">
                 <div className="w-14 h-14 bg-amber-50 border border-amber-200 text-[#C87D55] rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <ShieldAlert size={28} />
@@ -91,9 +85,20 @@ export default function AdminLayout({
                 </Link>
               </div>
             </div>
-          ) : (
-            children
           )}
+
+          {/* Children is always rendered so Next.js instant navigation validation succeeds */}
+          <div
+            className={
+              !mounted || !isAuthenticated
+                ? 'invisible'
+                : isRestrictedForStaff
+                ? 'hidden'
+                : ''
+            }
+          >
+            {children}
+          </div>
         </main>
       </div>
     </div>

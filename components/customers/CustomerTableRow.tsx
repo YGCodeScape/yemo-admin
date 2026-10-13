@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import {
   Sparkles,
   Phone,
@@ -13,7 +14,6 @@ import {
   Award,
   UserX,
   UserCheck,
-  CheckCircle2,
   XCircle,
 } from 'lucide-react'
 import { Customer, MembershipTier } from '@/store/useAdminStore'
@@ -90,9 +90,11 @@ export default function CustomerTableRow({
             }`}
           >
             {customer.avatar ? (
-              <img
+              <Image
                 src={customer.avatar}
                 alt={customer.name}
+                width={40}
+                height={40}
                 className="w-full h-full object-cover rounded-2xl"
               />
             ) : (

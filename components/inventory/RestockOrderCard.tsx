@@ -12,8 +12,6 @@ import {
   Truck,
   PackageCheck,
   ArrowRight,
-  ShieldCheck,
-  Boxes,
 } from 'lucide-react'
 import { RestockOrder, RestockStatus } from '@/store/useAdminStore'
 

@@ -1,12 +1,12 @@
 'use client'
 
 import React from 'react'
-import { Table, Order } from '@/store/useAdminStore'
+import Image from 'next/image'
+import { Table } from '@/store/useAdminStore'
 import FloorTable from '@/components/tables/FloorTable'
 
 interface FloorPlanProps {
   tables: Table[]
-  orders: Order[]
   selectedTableId: string
   onSelectTable: (table: Table) => void
   onOpenQr: (table: Table) => void
@@ -14,7 +14,6 @@ interface FloorPlanProps {
 
 export default function FloorPlan({
   tables,
-  orders,
   selectedTableId,
   onSelectTable,
   onOpenQr,
@@ -34,10 +33,13 @@ export default function FloorPlan({
       */}
       <div className="relative min-w-[760px] w-full aspect-[16/11] overflow-hidden rounded-3xl select-none">
         {/* Architectural 3D Cafe Background */}
-        <img
+        <Image
           src="/assets/cafe-floar-bg.png"
           alt="Café Floor Layout"
-          className="absolute inset-0 w-full h-full object-fill pointer-events-none select-none"
+          fill
+          priority
+          sizes="(max-width: 1200px) 100vw, 1200px"
+          className="object-fill pointer-events-none select-none"
         />
 
         {/* 
@@ -51,9 +53,6 @@ export default function FloorPlan({
         <div className="absolute inset-0 pt-[12%] pb-[16%] pl-[16%] pr-[12%] flex items-center justify-center pointer-events-auto">
           <div className="grid grid-cols-4 grid-rows-3 gap-x-3 lg:gap-x-5 gap-y-2 lg:gap-y-4 w-full h-full max-w-4xl mx-auto items-center justify-items-center">
             {sortedTables.slice(0, 12).map((table) => {
-              const linkedOrder = orders.find(
-                (o) => o.tableNumber === table.number && o.status !== 'completed'
-              )
               const isSelected = table.id === selectedTableId
 
               return (
@@ -62,7 +61,6 @@ export default function FloorPlan({
                     number={table.number}
                     seats={table.capacity}
                     status={table.status}
-                    orderId={linkedOrder?.id}
                     isSelected={isSelected}
                     onSelect={() => onSelectTable(table)}
                     onOpenQr={() => onOpenQr(table)}

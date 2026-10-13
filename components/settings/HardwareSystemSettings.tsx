@@ -3,14 +3,10 @@
 import React, { useState } from 'react'
 import {
   Printer,
-  HardDrive,
   Database,
-  Bell,
   RefreshCw,
   Save,
   CheckCircle2,
-  FileDown,
-  Wifi,
 } from 'lucide-react'
 import { useAdminStore } from '@/store/useAdminStore'
 

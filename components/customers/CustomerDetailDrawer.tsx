@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import {
   X,
   Sparkles,
@@ -136,9 +137,11 @@ export default function CustomerDetailDrawer({
                 }`}
               >
                 {customer.avatar ? (
-                  <img
+                  <Image
                     src={customer.avatar}
                     alt={customer.name}
+                    width={56}
+                    height={56}
                     className="w-full h-full object-cover rounded-2xl"
                   />
                 ) : (
@@ -193,7 +196,7 @@ export default function CustomerDetailDrawer({
                 <div>
                   <div className="font-bold text-stone-900">Account Deactivated</div>
                   <p className="mt-0.5 text-stone-600">
-                    This customer's loyalty earnings and redemptions are paused. Profile data and points history remain preserved.
+                    This customer&apos;s loyalty earnings and redemptions are paused. Profile data and points history remain preserved.
                   </p>
                 </div>
               </div>
@@ -345,7 +348,7 @@ export default function CustomerDetailDrawer({
                   Service & Hospitality Notes
                 </div>
                 <p className="text-sm text-stone-700 leading-relaxed italic">
-                  "{customer.notes}"
+                  &ldquo;{customer.notes}&rdquo;
                 </p>
               </div>
             )}

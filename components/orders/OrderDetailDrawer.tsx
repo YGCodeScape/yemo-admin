@@ -4,11 +4,8 @@ import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   X,
-  Receipt,
   User,
-  Clock,
   Printer,
-  Ban,
   CheckCircle2,
   Truck,
   CookingPot,

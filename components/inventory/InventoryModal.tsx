@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { X, PackagePlus, Edit3 } from 'lucide-react'
 import { InventoryItem, InventoryCategory } from '@/store/useAdminStore'
 
@@ -17,44 +17,55 @@ export default function InventoryModal({
   onClose,
   onSave,
 }: InventoryModalProps) {
-  const [sku, setSku] = useState('')
-  const [name, setName] = useState('')
-  const [category, setCategory] = useState<InventoryCategory>('coffee_beans')
-  const [currentStock, setCurrentStock] = useState<number>(10)
-  const [unit, setUnit] = useState<string>('kg')
-  const [minThreshold, setMinThreshold] = useState<number>(5)
-  const [maxCapacity, setMaxCapacity] = useState<number>(25)
-  const [costPerUnit, setCostPerUnit] = useState<number>(500)
-  const [supplier, setSupplier] = useState('')
-  const [storageLocation, setStorageLocation] = useState('')
-
-  useEffect(() => {
-    if (initialItem) {
-      setSku(initialItem.sku)
-      setName(initialItem.name)
-      setCategory(initialItem.category)
-      setCurrentStock(initialItem.currentStock)
-      setUnit(initialItem.unit)
-      setMinThreshold(initialItem.minThreshold)
-      setMaxCapacity(initialItem.maxCapacity || initialItem.minThreshold * 3)
-      setCostPerUnit(initialItem.costPerUnit)
-      setSupplier(initialItem.supplier || '')
-      setStorageLocation(initialItem.storageLocation || '')
-    } else {
-      setSku(`YMO-${Date.now().toString().slice(-4)}`)
-      setName('')
-      setCategory('coffee_beans')
-      setCurrentStock(10)
-      setUnit('kg')
-      setMinThreshold(5)
-      setMaxCapacity(25)
-      setCostPerUnit(650)
-      setSupplier('Blue Tokai Roasters')
-      setStorageLocation('Barista Bar B-01')
-    }
-  }, [initialItem, isOpen])
-
   if (!isOpen) return null
+
+  return (
+    <InventoryModalForm
+      key={initialItem?.id || 'new'}
+      initialItem={initialItem}
+      onClose={onClose}
+      onSave={onSave}
+    />
+  )
+}
+
+function InventoryModalForm({
+  initialItem,
+  onClose,
+  onSave,
+}: {
+  initialItem?: InventoryItem | null
+  onClose: () => void
+  onSave: (data: Omit<InventoryItem, 'id' | 'lastUpdated' | 'status'>) => void
+}) {
+  const [sku, setSku] = useState(
+    () => initialItem?.sku || `YMO-${Date.now().toString().slice(-4)}`
+  )
+  const [name, setName] = useState(initialItem?.name || '')
+  const [category, setCategory] = useState<InventoryCategory>(
+    initialItem?.category || 'coffee_beans'
+  )
+  const [currentStock, setCurrentStock] = useState<number>(
+    initialItem ? initialItem.currentStock : 10
+  )
+  const [unit, setUnit] = useState<string>(initialItem?.unit || 'kg')
+  const [minThreshold, setMinThreshold] = useState<number>(
+    initialItem ? initialItem.minThreshold : 5
+  )
+  const [maxCapacity, setMaxCapacity] = useState<number>(
+    initialItem
+      ? initialItem.maxCapacity || initialItem.minThreshold * 3
+      : 25
+  )
+  const [costPerUnit, setCostPerUnit] = useState<number>(
+    initialItem ? initialItem.costPerUnit : 650
+  )
+  const [supplier, setSupplier] = useState(
+    initialItem ? initialItem.supplier || '' : 'Blue Tokai Roasters'
+  )
+  const [storageLocation, setStorageLocation] = useState(
+    initialItem ? initialItem.storageLocation || '' : 'Barista Bar B-01'
+  )
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()

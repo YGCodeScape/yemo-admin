@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { X, UserPlus, Sparkles, Coins, Phone, Mail, User } from 'lucide-react'
+import React, { useState } from 'react'
+import { X, UserPlus, Coins, Phone, Mail, User } from 'lucide-react'
 import { Customer, MembershipTier } from '@/store/useAdminStore'
 
 interface CustomerModalProps {
@@ -10,38 +10,21 @@ interface CustomerModalProps {
   onSave: (data: Omit<Customer, 'id' | 'memberSince'>) => void
 }
 
-export default function CustomerModal({
-  isOpen,
+function CustomerModalForm({
   onClose,
   onSave,
-}: CustomerModalProps) {
+}: {
+  onClose: () => void
+  onSave: (data: Omit<Customer, 'id' | 'memberSince'>) => void
+}) {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('+91 ')
   const [email, setEmail] = useState('')
   const [tier, setTier] = useState<MembershipTier>('bronze')
   const [loyaltyBeans, setLoyaltyBeans] = useState<number>(100)
-  const [totalVisits, setTotalVisits] = useState<number>(1)
-  const [lifetimeSpend, setLifetimeSpend] = useState<number>(350)
   const [favoriteItem, setFavoriteItem] = useState('Classic Cappuccino')
   const [dietaryPreference, setDietaryPreference] = useState('🌱 Vegetarian')
   const [notes, setNotes] = useState('')
-
-  useEffect(() => {
-    if (isOpen) {
-      setName('')
-      setPhone('+91 ')
-      setEmail('')
-      setTier('bronze')
-      setLoyaltyBeans(100)
-      setTotalVisits(1)
-      setLifetimeSpend(350)
-      setFavoriteItem('Classic Cappuccino')
-      setDietaryPreference('🌱 Vegetarian')
-      setNotes('')
-    }
-  }, [isOpen])
-
-  if (!isOpen) return null
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -53,9 +36,9 @@ export default function CustomerModal({
       email: email.trim() || undefined,
       tier,
       loyaltyBeans: Number(loyaltyBeans) || 0,
-      totalVisits: Number(totalVisits) || 1,
-      lifetimeSpend: Number(lifetimeSpend) || 0,
-      avgOrderValue: Math.round((Number(lifetimeSpend) || 350) / (Number(totalVisits) || 1)),
+      totalVisits: 1,
+      lifetimeSpend: 350,
+      avgOrderValue: 350,
       favoriteItem: favoriteItem.trim() || 'Classic Cappuccino',
       dietaryPreference: dietaryPreference.trim() || undefined,
       notes: notes.trim() || undefined,
@@ -247,4 +230,13 @@ export default function CustomerModal({
       </div>
     </div>
   )
+}
+
+export default function CustomerModal({
+  isOpen,
+  onClose,
+  onSave,
+}: CustomerModalProps) {
+  if (!isOpen) return null
+  return <CustomerModalForm onClose={onClose} onSave={onSave} />
 }

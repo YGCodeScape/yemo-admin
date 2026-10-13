@@ -2,15 +2,7 @@
 
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import {
-  X,
-  QrCode,
-  Download,
-  Printer,
-  RefreshCw,
-  ExternalLink,
-  Sparkles,
-} from 'lucide-react'
+import { X, Download, Printer, RefreshCw } from 'lucide-react'
 import { Table, useAdminStore } from '@/store/useAdminStore'
 
 interface TableQrModalProps {

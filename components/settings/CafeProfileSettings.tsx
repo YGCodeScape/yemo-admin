@@ -2,14 +2,12 @@
 
 import React, { useState } from 'react'
 import {
-  Coffee,
   Store,
   Phone,
   Mail,
   MapPin,
   Clock,
   Wifi,
-  Globe,
   Save,
   CheckCircle2,
   FileText,

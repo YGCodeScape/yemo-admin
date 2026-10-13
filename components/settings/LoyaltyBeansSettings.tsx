@@ -5,12 +5,8 @@ import {
   Coins,
   Sparkles,
   Award,
-  Gift,
-  Calendar,
   Save,
   CheckCircle2,
-  TrendingUp,
-  Percent,
 } from 'lucide-react'
 import { useAdminStore } from '@/store/useAdminStore'
 
@@ -106,7 +102,7 @@ export default function LoyaltyBeansSettings() {
               />
             </div>
             <span className="text-[11px] text-[#A08878] mt-1 block">
-              Every 1 Bean gives ₹{rules.beanRupeeValue} discount off the diner's bill.
+              Every 1 Bean gives ₹{rules.beanRupeeValue} discount off the diner&apos;s bill.
             </span>
           </div>
 

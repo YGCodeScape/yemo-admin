@@ -4,23 +4,15 @@ import React, { useState, useMemo } from 'react'
 import {
   Plus,
   Search,
-  Filter,
   Package,
   AlertTriangle,
   XCircle,
   CheckCircle2,
-  TrendingDown,
   DollarSign,
-  Shield,
-  Eye,
-  Info,
-  MapPin,
-  Sliders,
 } from 'lucide-react'
 import {
   useAdminStore,
   InventoryItem,
-  InventoryCategory,
 } from '@/store/useAdminStore'
 import { useAuthStore } from '@/store/useAuthStore'
 import InventoryTableRow from '@/components/inventory/InventoryTableRow'
@@ -31,11 +23,7 @@ import InventoryDetailDrawer from '@/components/inventory/InventoryDetailDrawer'
 
 export default function StockPage() {
   const user = useAuthStore((s) => s.user)
-  const authRole = user?.role || 'admin'
-
-  // Simulated role toggle for live interactive testing (defaults to user's real role)
-  const [activeRole, setActiveRole] = useState<'admin' | 'staff'>(authRole)
-  const isAdmin = activeRole === 'admin'
+  const isAdmin = user?.role === 'admin'
 
   // Store data & actions
   const inventory = useAdminStore((s) => s.inventory)
@@ -150,7 +138,7 @@ export default function StockPage() {
   }
 
   return (
-    <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6 pb-20">
       {/* ── Toast Notification ── */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#2C1A0E] text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2.5 animate-in slide-in-from-bottom duration-200 border border-white/10 text-[13px] font-medium">
@@ -178,68 +166,18 @@ export default function StockPage() {
           </p>
         </div>
 
-        {/* Role Switcher Pill & Action */}
-        <div className="flex items-center gap-3">
-          {/* Live RBAC Role Testing Toggle */}
-          <div className="flex items-center bg-[#FAF5EE] p-1 rounded-full border border-[#EDE2D5] text-[12px] font-semibold">
-            <button
-              type="button"
-              onClick={() => setActiveRole('admin')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all ${
-                isAdmin
-                  ? 'bg-[#2C1A0E] text-white shadow-xs'
-                  : 'text-[#8C705B] hover:text-[#2C1A0E]'
-              }`}
-              title="Full CRUD access: Add, adjust quantities, edit, and delete supplies"
-            >
-              <Shield size={13} />
-              <span>Admin (CRUD)</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveRole('staff')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all ${
-                !isAdmin
-                  ? 'bg-[#2C1A0E] text-white shadow-xs'
-                  : 'text-[#8C705B] hover:text-[#2C1A0E]'
-              }`}
-              title="Read-only view for staff members"
-            >
-              <Eye size={13} />
-              <span>Staff (View Only)</span>
-            </button>
-          </div>
-
-          {/* "+ Add Inventory Supply" Button (Admin Only) */}
-          {isAdmin && (
-            <button
-              onClick={handleOpenAddModal}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#C87D55] text-white text-[13px] font-bold hover:bg-[#B36841] transition-all active:scale-95 shadow-xs"
-            >
-              <Plus size={16} />
-              <span>Add Supply</span>
-            </button>
-          )}
-        </div>
+        {/* "+ Add Inventory Supply" Button (Admin Only) */}
+        {isAdmin && (
+          <button
+            onClick={handleOpenAddModal}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#C87D55] text-white text-[13px] font-bold hover:bg-[#B36841] transition-all active:scale-95 shadow-xs"
+          >
+            <Plus size={16} />
+            <span>Add Supply</span>
+          </button>
+        )}
       </div>
 
-      {/* ── Staff View Only Banner (Shown when in staff view) ── */}
-      {!isAdmin && (
-        <div className="p-3.5 bg-amber-50/80 border border-amber-200/90 rounded-2xl flex items-center justify-between text-amber-900 text-[13px]">
-          <div className="flex items-center gap-2.5">
-            <Info size={17} className="text-[#C87D55] flex-shrink-0" />
-            <span>
-              <strong className="font-bold">Staff View Active:</strong> You have view-only access to inventory. Restocking supplies, adjusting stock counts, and deleting items requires Admin permissions.
-            </span>
-          </div>
-          <button
-            onClick={() => setActiveRole('admin')}
-            className="text-[12px] font-bold text-[#8C4A28] underline hover:text-[#2C1A0E] flex-shrink-0 ml-4"
-          >
-            Switch to Admin
-          </button>
-        </div>
-      )}
 
       {/* ── 4 Stats Metric Cards ── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">

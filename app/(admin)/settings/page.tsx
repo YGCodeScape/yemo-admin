@@ -7,7 +7,6 @@ import {
   Coins,
   Users,
   Printer,
-  Sparkles,
   Sliders,
 } from 'lucide-react'
 import CafeProfileSettings from '@/components/settings/CafeProfileSettings'
@@ -55,7 +54,7 @@ export default function SettingsPage() {
   ]
 
   return (
-    <div className="p-4 md:p-8 space-y-6 max-w-[1600px] mx-auto pb-16">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-7xl mx-auto pb-20">
       {/* ── Page Header ── */}
       <div className="bg-white p-5 md:p-6 rounded-3xl border border-[#EDE2D5] shadow-2xs">
         <div className="flex items-center gap-2.5">

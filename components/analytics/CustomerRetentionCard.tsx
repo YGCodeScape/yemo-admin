@@ -1,15 +1,7 @@
 'use client'
 
 import React from 'react'
-import {
-  Users,
-  Coins,
-  Repeat,
-  Sparkles,
-  Heart,
-  TrendingUp,
-  Award,
-} from 'lucide-react'
+import { Coins, Repeat, Award } from 'lucide-react'
 import { TimeRange } from './AnalyticsHeader'
 
 export default function CustomerRetentionCard({ timeRange }: { timeRange: TimeRange }) {
@@ -29,7 +21,7 @@ export default function CustomerRetentionCard({ timeRange }: { timeRange: TimeRa
             </span>
           </div>
           <p className="text-[12px] text-[#8C705B] mt-0.5">
-            Repeat patron return velocity, membership tier impact, and beans economy.
+            {timeRange === 'today' ? 'Daily' : timeRange === '90d' ? 'Quarterly' : 'Period'} repeat patron return velocity, membership tier impact, and beans economy.
           </p>
         </div>
       </div>

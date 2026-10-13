@@ -2,15 +2,12 @@
 
 import React, { useState } from 'react'
 import {
-  UtensilsCrossed,
   QrCode,
   Volume2,
   Clock,
   Percent,
-  Receipt,
   Save,
   CheckCircle2,
-  AlertCircle,
 } from 'lucide-react'
 import { useAdminStore } from '@/store/useAdminStore'
 

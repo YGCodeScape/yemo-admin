@@ -3,13 +3,10 @@
 import React from 'react'
 import {
   IndianRupee,
-  TrendingUp,
   Percent,
   Receipt,
   Clock,
   ArrowUpRight,
-  ArrowDownRight,
-  Sparkles,
 } from 'lucide-react'
 import { TimeRange } from './AnalyticsHeader'
 

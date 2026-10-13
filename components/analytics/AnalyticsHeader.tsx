@@ -1,15 +1,7 @@
 'use client'
 
 import React from 'react'
-import {
-  Calendar,
-  Download,
-  TrendingUp,
-  Sparkles,
-  ChevronDown,
-  Printer,
-  FileSpreadsheet,
-} from 'lucide-react'
+import { Sparkles, FileSpreadsheet } from 'lucide-react'
 
 export type TimeRange = 'today' | '7d' | '30d' | 'month' | '90d'
 

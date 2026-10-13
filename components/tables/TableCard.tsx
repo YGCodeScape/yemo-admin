@@ -5,13 +5,9 @@ import Link from 'next/link'
 import {
   QrCode,
   Users,
-  Clock,
   MoreVertical,
   Trash2,
-  Receipt,
   ArrowRight,
-  CheckCircle2,
-  Sparkles,
 } from 'lucide-react'
 import { Table, TableStatus, Order, useAdminStore } from '@/store/useAdminStore'
 import { useAuthStore } from '@/store/useAuthStore'

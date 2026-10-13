@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { X, Plus, Trash2, FilePlus, Calculator, Truck } from 'lucide-react'
+import { X, Plus, Trash2, FilePlus, Calculator } from 'lucide-react'
 import {
   RestockOrder,
   RestockOrderItem,

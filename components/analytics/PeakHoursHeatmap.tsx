@@ -1,17 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import {
-  Clock,
-  Sun,
-  Sunset,
-  Moon,
-  Users,
-  Coffee,
-  Sparkles,
-  TrendingUp,
-  AlertCircle,
-} from 'lucide-react'
+import { Clock } from 'lucide-react'
 import { TimeRange } from './AnalyticsHeader'
 
 interface HourlySlot {
@@ -133,7 +123,7 @@ export default function PeakHoursHeatmap({ timeRange }: { timeRange: TimeRange }
             </span>
           </div>
           <p className="text-[12px] text-[#8C705B] mt-0.5">
-            Identify dining surges across daytime intervals to optimize kitchen prep and floor staffing.
+            Identify dining surges for {timeRange === 'today' ? 'today' : `the last ${timeRange}`} to optimize kitchen prep and floor staffing.
           </p>
         </div>
 

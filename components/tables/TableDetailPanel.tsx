@@ -6,16 +6,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
   QrCode,
-  MoreHorizontal,
   Clock,
-  PlusCircle,
   Eye,
-  RefreshCw,
   ShoppingBag,
   ArrowRight,
   Coffee,
-  CheckCircle2,
-  Sparkles,
 } from 'lucide-react'
 import { Table, TableStatus, Order, useAdminStore } from '@/store/useAdminStore'
 import { formatCurrency, timeAgo } from '@/lib/utils'

@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { UserX, UserCheck, AlertCircle } from 'lucide-react'
+import { UserX, UserCheck } from 'lucide-react'
 import { Customer } from '@/store/useAdminStore'
 
 interface DeactivateCustomerModalProps {
@@ -48,13 +48,13 @@ export default function DeactivateCustomerModal({
               {isCurrentlyActive ? (
                 <>
                   Are you sure you want to deactivate{' '}
-                  <strong className="text-[#2C1A0E]">"{customer.name}"</strong>?
+                  <strong className="text-[#2C1A0E]">&ldquo;{customer.name}&rdquo;</strong>?
                   Their loyalty bean balance ({customer.loyaltyBeans} Beans) and dining history will remain safe, but their account cannot earn or redeem rewards until reactivated.
                 </>
               ) : (
                 <>
                   Reactivate account for{' '}
-                  <strong className="text-[#2C1A0E]">"{customer.name}"</strong>?
+                  <strong className="text-[#2C1A0E]">&ldquo;{customer.name}&rdquo;</strong>?
                   They will immediately be able to earn and redeem loyalty beans at any table.
                 </>
               )}

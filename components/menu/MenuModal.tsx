@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
-import { X, Plus, Trash2, Sparkles, Image as ImageIcon } from 'lucide-react'
+import { X, Plus } from 'lucide-react'
 import {
   MenuItem,
   MenuCategory,
@@ -39,55 +39,45 @@ export default function MenuModal({
   onClose,
   onSave,
 }: MenuModalProps) {
-  const [name, setName] = useState('')
-  const [category, setCategory] = useState<MenuCategory>('coffee')
-  const [price, setPrice] = useState<number>(200)
-  const [costPrice, setCostPrice] = useState<number>(60)
-  const [description, setDescription] = useState('')
-  const [image, setImage] = useState('/products/cappuccino.jpg')
-  const [isAvailable, setIsAvailable] = useState(true)
-  const [dietary, setDietary] = useState<DietaryType>('veg')
-  const [prepTimeMinutes, setPrepTimeMinutes] = useState<number>(5)
-  const [badge, setBadge] = useState<ItemBadge | undefined>(undefined)
-  const [ingredientInput, setIngredientInput] = useState('')
-  const [ingredients, setIngredients] = useState<string[]>([])
-  const [calories, setCalories] = useState<number | undefined>(undefined)
-  const [allergensInput, setAllergensInput] = useState('')
-
-  useEffect(() => {
-    if (initialItem) {
-      setName(initialItem.name)
-      setCategory(initialItem.category)
-      setPrice(initialItem.price)
-      setCostPrice(initialItem.costPrice || 50)
-      setDescription(initialItem.description)
-      setImage(initialItem.image)
-      setIsAvailable(initialItem.isAvailable)
-      setDietary(initialItem.dietary)
-      setPrepTimeMinutes(initialItem.prepTimeMinutes)
-      setBadge(initialItem.badge)
-      setIngredients(initialItem.ingredients || [])
-      setCalories(initialItem.calories)
-      setAllergensInput(initialItem.allergens ? initialItem.allergens.join(', ') : '')
-    } else {
-      // Defaults for new item
-      setName('')
-      setCategory('coffee')
-      setPrice(220)
-      setCostPrice(65)
-      setDescription('')
-      setImage('/products/cappuccino.jpg')
-      setIsAvailable(true)
-      setDietary('veg')
-      setPrepTimeMinutes(5)
-      setBadge(undefined)
-      setIngredients(['Espresso', 'Steamed Milk'])
-      setCalories(140)
-      setAllergensInput('Dairy')
-    }
-  }, [initialItem, isOpen])
-
   if (!isOpen) return null
+
+  return (
+    <MenuModalForm
+      key={initialItem?.id || 'new'}
+      initialItem={initialItem}
+      onClose={onClose}
+      onSave={onSave}
+    />
+  )
+}
+
+function MenuModalForm({
+  initialItem,
+  onClose,
+  onSave,
+}: {
+  initialItem?: MenuItem | null
+  onClose: () => void
+  onSave: (data: Omit<MenuItem, 'id' | 'createdAt' | 'updatedAt'>) => void
+}) {
+  const [name, setName] = useState(initialItem?.name || '')
+  const [category, setCategory] = useState<MenuCategory>(initialItem?.category || 'coffee')
+  const [price, setPrice] = useState<number>(initialItem ? initialItem.price : 220)
+  const [costPrice, setCostPrice] = useState<number>(initialItem?.costPrice ?? 65)
+  const [description, setDescription] = useState(initialItem?.description || '')
+  const [image, setImage] = useState(initialItem?.image || '/products/cappuccino.jpg')
+  const [isAvailable, setIsAvailable] = useState(initialItem?.isAvailable ?? true)
+  const [dietary, setDietary] = useState<DietaryType>(initialItem?.dietary || 'veg')
+  const [prepTimeMinutes, setPrepTimeMinutes] = useState<number>(initialItem?.prepTimeMinutes || 5)
+  const [badge, setBadge] = useState<ItemBadge | undefined>(initialItem?.badge)
+  const [ingredientInput, setIngredientInput] = useState('')
+  const [ingredients, setIngredients] = useState<string[]>(
+    initialItem?.ingredients || (initialItem ? [] : ['Espresso', 'Steamed Milk'])
+  )
+  const [calories, setCalories] = useState<number | undefined>(initialItem?.calories ?? (initialItem ? undefined : 140))
+  const [allergensInput, setAllergensInput] = useState(
+    initialItem?.allergens ? initialItem.allergens.join(', ') : (initialItem ? '' : 'Dairy')
+  )
 
   const handleAddIngredient = () => {
     if (ingredientInput.trim() && !ingredients.includes(ingredientInput.trim())) {
@@ -228,7 +218,7 @@ export default function MenuModal({
                 <span className="text-[14px] font-bold text-emerald-700">
                   ₹{profit}
                 </span>
-                <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100 px-1.5 py-0.2 rounded-full">
+                <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded-full">
                   +{marginPercent}%
                 </span>
               </div>

@@ -36,7 +36,7 @@ export default function DeleteInventoryModal({
             </h3>
             <p className="text-[13px] text-[#8C705B] leading-relaxed">
               Are you sure you want to remove supply{' '}
-              <strong className="text-[#2C1A0E]">"{item.name}"</strong> (
+              <strong className="text-[#2C1A0E]">&ldquo;{item.name}&rdquo;</strong> (
               <span className="font-mono text-[12px]">{item.sku}</span>)?
               This will remove all stock tracking and history for this item.
             </p>

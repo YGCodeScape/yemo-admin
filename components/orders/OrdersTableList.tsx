@@ -3,14 +3,13 @@
 import React from 'react'
 import {
   CheckCircle2,
-  CookingPot,
   Truck,
   Eye,
   ArrowRight,
   Sparkles,
 } from 'lucide-react'
 import { Order, OrderStatus, useAdminStore } from '@/store/useAdminStore'
-import { formatCurrency, formatTime, formatDate, timeAgo } from '@/lib/utils'
+import { formatCurrency, timeAgo } from '@/lib/utils'
 
 interface OrdersTableListProps {
   orders: Order[]

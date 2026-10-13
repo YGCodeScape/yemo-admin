@@ -2,15 +2,8 @@
 
 import React, { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import {
-  Search,
-  ShoppingBag,
-  Sparkles,
-  Clock,
-  CheckCircle2,
-  CookingPot,
-} from 'lucide-react'
-import { useAdminStore, Order, OrderStatus } from '@/store/useAdminStore'
+import { Search, ShoppingBag, Sparkles } from 'lucide-react'
+import { useAdminStore, Order } from '@/store/useAdminStore'
 import OrdersTableList from '@/components/orders/OrdersTableList'
 import OrderDetailDrawer from '@/components/orders/OrderDetailDrawer'
 
@@ -18,34 +11,32 @@ function OrdersContent() {
   const searchParams = useSearchParams()
   const orders = useAdminStore((s) => s.orders)
 
+  const initialTarget = searchParams.get('highlight') || searchParams.get('order')
+
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<string>('all')
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
-  const [highlightId, setHighlightId] = useState<string | null>(null)
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(() => {
+    if (!initialTarget) return null
+    return (
+      orders.find((o) => o.id.toLowerCase() === initialTarget.toLowerCase()) ||
+      null
+    )
+  })
+  const [highlightId, setHighlightId] = useState<string | null>(initialTarget)
 
-  // Handle URL deep-linking query param: e.g. /orders?highlight=YMO-1048
+  // Smooth scroll to deep-linked row on mount if present
   useEffect(() => {
-    const targetId = searchParams.get('highlight') || searchParams.get('order')
-    if (targetId) {
-      setHighlightId(targetId)
+    if (!initialTarget) return
 
-      // Find the order
-      const targetOrder = orders.find(
-        (o) => o.id.toLowerCase() === targetId.toLowerCase()
-      )
-      if (targetOrder) {
-        setSelectedOrder(targetOrder)
+    const timer = setTimeout(() => {
+      const el = document.getElementById(`order-row-${initialTarget}`)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' })
       }
+    }, 350)
 
-      // Smooth scroll to the highlighted row after render
-      setTimeout(() => {
-        const el = document.getElementById(`order-row-${targetId}`)
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        }
-      }, 350)
-    }
-  }, [searchParams, orders])
+    return () => clearTimeout(timer)
+  }, [initialTarget])
 
   // Filter orders based on search and status tab
   const filteredOrders = orders.filter((order) => {
@@ -69,7 +60,7 @@ function OrdersContent() {
   const completedCount = orders.filter((o) => o.status === 'completed').length
 
   return (
-    <div className="p-6 lg:p-8 space-y-6 max-w-[1600px] mx-auto pb-20">
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-[1600px] mx-auto pb-20">
       {/* ── Top Header ── */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
@@ -131,7 +122,7 @@ function OrdersContent() {
               }`}
             >
               <span>{tab.label}</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-white border border-[#EBDCCF] text-[#8C7362]">
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white border border-[#EBDCCF] text-[#8C7362]">
                 {tab.count}
               </span>
             </button>
@@ -161,7 +152,7 @@ function OrdersContent() {
       <OrdersTableList
         orders={filteredOrders}
         highlightId={highlightId}
-        onSelectOrder={(order) => setSelectedOrder(order)}
+        onSelectOrder={setSelectedOrder}
       />
 
       {/* ── Slide-Over Order Detail Drawer ── */}
