@@ -36,52 +36,40 @@ Most restaurant admin dashboards look like generic, cold corporate spreadsheets 
 ### 1. Executive Dashboard & Live Floor Velocity
 * Real-time gross revenue, order volume, active tables, and low inventory warnings.
 * Dynamic operational greeting with synchronized real-time café clock.
-* Quick-action shortcuts for registering walk-in diners, creating orders, and adjusting inventory.
 
 ### 2. Kitchen & Order Pipeline
-* Interactive kanban & list views for live orders (`Pending`, `Preparing`, `Ready`, `Served`, `Completed`).
+* Interactive kanban & list views for live orders 
 * Table-linked order tracking with preparation countdown timers.
-* Auto-KOT thermal ticket triggers for barista and kitchen stations.
 
 ### 3. Interactive Table & Floor Plan Management
 * Visual layout of café floor sections (Indoor Lounge, Window Counter, Outdoor Patio).
-* Live table states: `Available`, `Occupied`, `Reserved`, and `Cleaning`.
 * One-click generation of branded table QR codes with instant print/download for acrylic tabletop stands.
 
 ### 4. Artisanal Menu Engineering
 * Granular categorization (Specialty Coffee, Pour Overs, Cold Brews, Artisanal Bakery, Savory).
-* Dietary restriction tagging: 🌱 Vegetarian, 🌿 Vegan, 🌾 Gluten-Free, and ☕ Chef’s Special.
 * Instant price adjustments, recipe margin calculations, and 86-item availability toggling.
 
 ### 5. Inventory & Supply Chain Control
 * Real-time stock levels with automated low-stock warnings (`Warning` and `Critical`).
 * Metric unit tracking (kilograms, liters, packages, bakery units).
-* Quick stock adjustments with reason auditing (spillage, shift usage, waste reconciliation).
 
 ### 6. Restock History & Purchase Orders
 * Procurement timeline tracking PO numbers, suppliers, and delivery dates.
 * Status tracking (`Dispatched`, `In Transit`, `Delivered`).
-* Total procurement spending reconciliations.
 
 ### 7. Customer CRM & Loyalty Bean Economy
 * Guest dining history, visit frequency, favorite order items, and hospitality notes.
 * Dietary allergy alerts displayed directly on customer profile drawers.
-* Automated tier progression: **Bronze** (Welcome), **Silver** (Regular), and **Gold VIP** (Top Patron).
-* Manual and automated Loyalty Beans crediting with reason auditing.
 * Account deactivation and reactivation controls.
 
 ### 8. Business Analytics & Financial Insights
-* Multi-period financial trajectories (Today, 7 Days, 30 Days, This Month, 90 Days).
+* Multi-period financial trajectories
 * BCG Menu Matrix analyzing margin contribution vs. item sales velocity.
-* Channel distribution analytics: Dine-in vs. Grab-and-Go vs. Table QR Self-Order.
-* Settlement breakdown: UPI / QR Instant, Credit/Debit POS, and Cash Tendered.
 * Peak hours heatmap identifying dining surges for optimized barista shift scheduling.
 
 ### 9. Store Configuration & Hardware Systems
 * Café brand details, legal entity name, GSTIN compliance, and diner Wi-Fi credentials.
 * Kitchen prep buffers and automated peak-hour surge buffers.
-* Indian F&B GST tax rates (5% default) and optional service charge pooling.
-* Team staff directory with 4-digit POS terminal quick-PIN access.
 * ESC/POS network thermal printer testing and automatic receipt printing rules.
 
 ---
@@ -122,7 +110,6 @@ Launch the local development environment with Turbopack:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to access the Yemo Admin Panel.
 
 ### 3. Production Build
 Verify code quality and create an optimized production bundle:
