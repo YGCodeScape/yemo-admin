@@ -1,6 +1,8 @@
-# ☕ Yemo Admin — Artisanal Café Operations & POS Suite
-
 <div align="center">
+
+<img src="public/icons/yemo-logo-bg.png" alt="Yemo Logo" width="110" style="border-radius: 24px;" />
+
+# Yemo Admin — Artisanal Café Operations & POS Suite
 
 ![Next.js](https://img.shields.io/badge/Next.js-16.4-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react&logoColor=61DAFB)
@@ -20,7 +22,7 @@
 
 Most restaurant admin dashboards look like generic, cold corporate spreadsheets or cluttered legacy point-of-sale systems from 2012. **Yemo completely redefines café administration.**
 
-* **Artisanal Coffee Aesthetic:** Built with a warm, handcrafted design language inspired by specialty roasteries—featuring rich dark mocha (`#2C1A0E`), terracotta accents (`#C87D55`), warm cream backdrops (`#FAF7F4`), and editorial typography (*Playfair Display* & *Lily Script One*).
+
 * **Zero-Friction Live Floor Orchestration:** Real-time visibility into table occupancy, kitchen order queues, and barista ticket velocities without page refreshes or bloated navigation.
 * **Staff Privacy Guard:** Built-in operational role protection. Staff members get full operational capability (taking orders, checking table states, serving guests, and viewing dietary allergies) while sensitive financial data, guest phone numbers, and lifetime spends are automatically masked.
 * **BCG Menu Engineering Intelligence:** Goes beyond simple sales counts by categorizing your menu into *Stars*, *Plowhorses*, *Puzzles*, and *Underperformers*, showing exactly which items yield high margin and which require recipe tweaks.
