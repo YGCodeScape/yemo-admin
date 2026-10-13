@@ -7,11 +7,9 @@ import {
   ShoppingBag,
   Grid2X2,
   UtensilsCrossed,
-  Layers,
   Package,
   History,
   Users,
-  Award,
   BarChart3,
   Settings,
   LogOut,
@@ -103,13 +101,7 @@ const NAV_GROUPS: NavGroup[] = [
         href: '/customers',
         icon: Users,
         allowedRoles: ['admin', 'staff'], // Staff has privacy-protected view
-      },
-      {
-        title: 'Rewards',
-        href: '/rewards',
-        icon: Award,
-        allowedRoles: ['admin', 'staff'], // Staff can scan QR to validate vouchers
-      },
+      }
     ],
   },
   {
